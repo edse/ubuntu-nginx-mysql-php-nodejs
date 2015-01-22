@@ -37,21 +37,23 @@ ADD files/default   /etc/nginx/sites-available/default
 RUN mkdir           /etc/service/nginx
 ADD files/nginx.sh  /etc/service/nginx/run
 RUN chmod +x        /etc/service/nginx/run
-RUN mkdir           /etc/service/phpfpm
+RUN mkdir -p        /etc/service/phpfpm
 ADD files/phpfpm.sh /etc/service/phpfpm/run
 RUN chmod +x        /etc/service/phpfpm/run
 
 VOLUME ["/etc/nginx/sites-enabled", "/etc/nginx/certs", "/etc/nginx/conf.d", "/var/log/nginx", "/var/www/html"]
 
-
-# Start nginx
-RUN service nginx start
-
 # Start MySQL
-RUN service mysql start
+CMD service mysql start
 
 # Start Redis
-RUN redis-server start
+CMD redis-server start
+
+# Start php
+CMD service nginx start
+
+# Start nginx
+CMD service nginx start
 
 # Expose ports
 EXPOSE 80
