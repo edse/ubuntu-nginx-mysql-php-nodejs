@@ -34,7 +34,7 @@ RUN sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php5/fpm/php.ini
 
 RUN mkdir -p        /var/www
 ADD files/default   /etc/nginx/sites-available/default
-RUN mkdir           /etc/service/nginx
+RUN mkdir -p        /etc/service/nginx
 ADD files/nginx.sh  /etc/service/nginx/run
 RUN chmod +x        /etc/service/nginx/run
 RUN mkdir -p        /etc/service/phpfpm
